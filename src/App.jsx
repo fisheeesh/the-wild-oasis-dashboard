@@ -1,7 +1,31 @@
+import styled from "styled-components"
+import GlobalStyles from "./styles/GlobalStyles"
+import Button from "./ui/Button"
+import Input from "./ui/Input"
+
+const H1 = styled.h1`
+  font-size: 30px;
+  font-weight: 600;
+  background-color: orange ;
+`
+
+const StyledApp = styled.main`
+  /* background-color: orangered; */
+  padding: 20px;
+`
+
 export default function App() {
   return (
-    <div>
-      the wild oasis
-    </div>
+    <>
+      <GlobalStyles />
+      <StyledApp>
+        <H1>The wild oasis</H1>
+        <Button onClick={() => alert('hi')}>Check In</Button>
+        <Button onClick={() => alert('ih')}>Check Out</Button>
+
+        <Input type="number" placeholder="Number of guests" />
+        <Input type="email" placeholder="Number of guests" />
+      </StyledApp>
+    </>
   )
 }
