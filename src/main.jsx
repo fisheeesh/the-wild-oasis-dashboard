@@ -10,9 +10,11 @@ const queryClient = new QueryClient({
     queries: {
       /**
        * ? The amount of the time data will still fresh in the cache.
-       * ? It will stay valid until refetch again.
+       * ? It will stay valid until refetch again. 
+       * $ When it was in stale state, it will trigger re-fetch.
        */
-      staleTime: 60 * 1000
+      // staleTime: 60 * 1000
+      staleTime: 0
     }
   }
 })
