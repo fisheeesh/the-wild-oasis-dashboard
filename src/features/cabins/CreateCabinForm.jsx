@@ -12,13 +12,13 @@ import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow";
 
 function CreateCabinForm() {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(createCabinFormFields)
   })
 
   const queryClient = useQueryClient()
 
-  const { isLoading: isCreating, mutate } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: createCabin,
     onSuccess: () => {
       toast.success('New cabin successfully created.')
@@ -28,42 +28,44 @@ function CreateCabinForm() {
     onError: err => toast.error(err.message)
   })
 
-  const onCreateCabin = (data) => {
-    mutate(data)
+  const onCreateCabin = async (data) => {
+
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    mutate({ ...data, image: data.image[0] })
   }
 
   return (
     <Form onSubmit={handleSubmit(onCreateCabin)}>
       <FormRow label="Cabin name" errorMessage={errors?.name?.message}>
-        <Input disabled={isCreating} type="text" id="name" {...register('name')} />
+        <Input disabled={isSubmitting} type="text" id="name" {...register('name')} />
       </FormRow>
 
       <FormRow label={'Max Capacity'} errorMessage={errors?.maxCapacity?.message}>
-        <Input disabled={isCreating} type="number" id="maxCapacity" {...register("maxCapacity", { valueAsNumber: true })} />
+        <Input disabled={isSubmitting} type="number" id="maxCapacity" {...register("maxCapacity", { valueAsNumber: true })} />
       </FormRow>
 
       <FormRow label={'Regular price'} errorMessage={errors?.regularPrice?.message}>
-        <Input disabled={isCreating} type="number" id="regularPrice" {...register('regularPrice', { valueAsNumber: true })} />
+        <Input disabled={isSubmitting} type="number" id="regularPrice" {...register('regularPrice', { valueAsNumber: true })} />
       </FormRow>
 
       <FormRow label={'Discount'} errorMessage={errors?.discount?.message}>
-        <Input disabled={isCreating} type="number" id="discount" defaultValue={0} {...register('discount', { valueAsNumber: true })} />
+        <Input disabled={isSubmitting} type="number" id="discount" defaultValue={0} {...register('discount', { valueAsNumber: true })} />
       </FormRow>
 
       <FormRow label={'Description'} errorMessage={errors?.description?.message}>
-        <Textarea disabled={isCreating} type="number" id="description" defaultValue="" {...register('description')} />
+        <Textarea disabled={isSubmitting} type="number" id="description" defaultValue="" {...register('description')} />
       </FormRow>
 
       <FormRow label={'Cabin photo'}>
-        <FileInput disabled={isCreating} id="image" accept="image/*" />
+        <FileInput disabled={isSubmitting} id="image" accept="image/*" {...register('image')} />
       </FormRow>
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button disabled={isCreating} variation="secondary" type="reset">
+        <Button disabled={isSubmitting} variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isCreating}>{isCreating ? 'Creating...' : 'Create new cabin'}</Button>
+        <Button disabled={isSubmitting}>{isSubmitting ? 'Creating...' : 'Create new cabin'}</Button>
       </FormRow>
     </Form>
   );
