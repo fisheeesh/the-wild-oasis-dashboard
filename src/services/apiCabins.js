@@ -39,7 +39,9 @@ export const createEditCabin = async (newCabin, id) => {
         throw new Error('Cabin could not be created.')
     }
 
-    //? Only when there is no error while creating a new cabin
+    if (hasImagePath) return data
+
+    //? Only when there is no error while creating a new cabin or image is not already in the bucket
     //? Second, we will upload an image to the bucket
     const { error: storageError } = await supabase
         .storage
