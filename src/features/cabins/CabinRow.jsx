@@ -1,12 +1,9 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
 import { useState } from "react";
-import CreateCabinForm from "./CreateCabinForm";
+import CreateEditCabinForm from "./CreateEditCabinForm";
+import useDeleteCabin from "./useDeleteCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -49,18 +46,10 @@ const Discount = styled.div`
 
 export default function CabinRow({ cabin }) {
   const [showForm, setShowForm] = useState(false)
+  const { id: cabinId, name, maxCapacity, regularPrice, discount, image } = cabin
 
-  const queryClient = useQueryClient()
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: (id) => deleteCabin(id),
-    onSuccess: () => {
-      toast.success('Cabin successfully deleted.')
-      queryClient.invalidateQueries({ queryKey: ['cabins'] })
-    },
-    onError: err => toast.error(err.message)
-  })
-
-  const { id: cabinId, name, maxCapacity, regularPrice, discount, image, description } = cabin
+  const { isDeleting, deleteCabin } = useDeleteCabin()
+  
   return (
     <>
       <TableRow>
@@ -68,13 +57,13 @@ export default function CabinRow({ cabin }) {
         <Cabin>{name}</Cabin>
         <div>Fit up to {maxCapacity} guests</div>
         <Price>{formatCurrency(regularPrice)}</Price>
-        <Discount>{formatCurrency(discount)}</Discount>
+        {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}
         <div>
           <button type="button" onClick={() => setShowForm(prev => !prev)}>Edit</button>
-          <button type="button" onClick={() => mutate(cabinId)} disabled={isDeleting}>Delete</button>
+          <button type="button" onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>Delete</button>
         </div>
       </TableRow>
-      {showForm && <CreateCabinForm cabinToEdit={cabin} />}
+      {showForm && <CreateEditCabinForm cabinToEdit={cabin} setShowForm={setShowForm} />}
     </>
   )
 }
