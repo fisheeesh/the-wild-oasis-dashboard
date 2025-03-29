@@ -11,10 +11,31 @@ export const createCabinFormFields = z.object({
     description: z.string()
         .min(1, { message: 'Description is required' })
         .min(10, { message: 'Description must be at least 10 characters long.' }),
-    image: z.any()
-        .refine(file => file?.length === 1, { message: 'Please upload an image' })
-        .refine(file => file[0]?.type?.startsWith('image/'), { message: "Only image files are allowed" })
-}).refine(data => data.discount <= data.regularPrice, {
-    message: "Discount should be less than regular price",
-    path: ['discount']
-})
+    image: z.any().optional(),
+    editImage: z.any().optional()
+}).superRefine((data, ctx) => {
+    const isEdit = !!data.editImage || !data.image;
+    if (!isEdit) {
+        if (!data.image || data.image.length !== 1) {
+            ctx.addIssue({
+                path: ['image'],
+                code: z.ZodIssueCode.custom,
+                message: 'Please upload an image'
+            });
+        } else if (!data.image[0]?.type?.startsWith('image/')) {
+            ctx.addIssue({
+                path: ['image'],
+                code: z.ZodIssueCode.custom,
+                message: 'Only image files are allowed'
+            });
+        }
+    }
+
+    if (data.discount > data.regularPrice) {
+        ctx.addIssue({
+            path: ['discount'],
+            code: z.ZodIssueCode.custom,
+            message: 'Discount should be less than regular price'
+        });
+    }
+});
