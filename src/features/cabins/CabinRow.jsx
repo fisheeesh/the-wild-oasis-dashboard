@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useState } from "react";
 import CreateEditCabinForm from "./CreateEditCabinForm";
 import useDeleteCabin from "./useDeleteCabin";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import useCreateCabin from "./useCreateCabin";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const TableRow = styled.div`
   display: grid;
@@ -47,7 +48,6 @@ const Discount = styled.div`
 `;
 
 export default function CabinRow({ cabin }) {
-  const [showForm, setShowForm] = useState(false)
   const { id: cabinId, name, maxCapacity, regularPrice, discount, image, description } = cabin
 
   const { createCabin, isCreating } = useCreateCabin()
@@ -75,11 +75,23 @@ export default function CabinRow({ cabin }) {
         {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}
         <div>
           <button type="button" disabled={isCreating} onClick={handleDuplicate}><HiSquare2Stack /></button>
-          <button type="button" onClick={() => setShowForm(prev => !prev)}><HiPencil /></button>
-          <button type="button" onClick={() => deleteCabin(cabinId)} disabled={isDeleting}><HiTrash /></button>
+          <Modal>
+            <Modal.Open opens='edit-form'>
+              <button type="button"><HiPencil /></button>
+            </Modal.Open>
+            <Modal.Window name='edit-form'>
+              <CreateEditCabinForm cabinToEdit={cabin} />
+            </Modal.Window>
+
+            <Modal.Open opens='delete'>
+              <button type="button"><HiTrash /></button>
+            </Modal.Open>
+            <Modal.Window name='delete'>
+              <ConfirmDelete resourceName={name} disabled={isDeleting} onConfirm={() => deleteCabin(cabinId)} />
+            </Modal.Window>
+          </Modal>
         </div>
       </TableRow>
-      {showForm && <CreateEditCabinForm cabinToEdit={cabin} setShowForm={setShowForm} />}
     </>
   )
 }

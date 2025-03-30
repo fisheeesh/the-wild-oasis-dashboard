@@ -11,7 +11,7 @@ import { createCabinFormFields } from "../../utils/zSchema";
 import useCreateCabin from "./useCreateCabin";
 import useEditCabin from "./useEditCabin";
 
-function CreateCabinForm({ cabinToEdit = {}, setShowForm, onCloseModal }) {
+function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = cabinToEdit
   const isEditSession = Boolean(editId)
 
@@ -26,7 +26,7 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm, onCloseModal }) {
   const isWorking = isCreating || isEditing || isSubmitting
 
   const onCreateCabin = async (data) => {
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    // await new Promise(resolve => setTimeout(resolve, 2000))
     if (isEditSession) {
       const newCabin = {
         name: data.name,
@@ -37,7 +37,10 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm, onCloseModal }) {
         image: data.editImage[0] ? data.editImage[0] : data.image
       }
       editCabin({ newCabinData: newCabin, id: editId }, {
-        onSuccess: () => setShowForm(false)
+        onSuccess: () => {
+          onCloseModal?.()
+          reset()
+        }
       })
     }
     else {
