@@ -20,8 +20,10 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm, onCloseModal }) {
     resolver: zodResolver(createCabinFormFields)
   })
 
-  const { createCabin } = useCreateCabin()
-  const { editCabin } = useEditCabin()
+  const { createCabin, isCreating } = useCreateCabin()
+  const { editCabin, isEditing } = useEditCabin()
+
+  const isWorking = isCreating || isEditing || isSubmitting
 
   const onCreateCabin = async (data) => {
     await new Promise(resolve => setTimeout(resolve, 2000))
@@ -41,8 +43,8 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm, onCloseModal }) {
     else {
       createCabin({ ...data, image: data.image[0] }, {
         onSuccess: () => {
-          reset()
           onCloseModal?.()
+          reset()
         }
       })
     }
@@ -51,35 +53,35 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm, onCloseModal }) {
   return (
     <Form onSubmit={handleSubmit(onCreateCabin)} type={onCloseModal ? 'modal' : 'regular'}>
       <FormRow label="Cabin name" errorMessage={errors?.name?.message}>
-        <Input disabled={isSubmitting} type="text" id="name" {...register('name')} />
+        <Input disabled={isWorking} type="text" id="name" {...register('name')} />
       </FormRow>
 
       <FormRow label={'Max Capacity'} errorMessage={errors?.maxCapacity?.message}>
-        <Input disabled={isSubmitting} type="number" id="maxCapacity" {...register("maxCapacity", { valueAsNumber: true })} />
+        <Input disabled={isWorking} type="number" id="maxCapacity" {...register("maxCapacity", { valueAsNumber: true })} />
       </FormRow>
 
       <FormRow label={'Regular price'} errorMessage={errors?.regularPrice?.message}>
-        <Input disabled={isSubmitting} type="number" id="regularPrice" {...register('regularPrice', { valueAsNumber: true })} />
+        <Input disabled={isWorking} type="number" id="regularPrice" {...register('regularPrice', { valueAsNumber: true })} />
       </FormRow>
 
       <FormRow label={'Discount'} errorMessage={errors?.discount?.message}>
-        <Input disabled={isSubmitting} type="number" id="discount" defaultValue={0} {...register('discount', { valueAsNumber: true })} />
+        <Input disabled={isWorking} type="number" id="discount" defaultValue={0} {...register('discount', { valueAsNumber: true })} />
       </FormRow>
 
       <FormRow label={'Description'} errorMessage={errors?.description?.message}>
-        <Textarea disabled={isSubmitting} type="number" id="description" defaultValue="" {...register('description')} />
+        <Textarea disabled={isWorking} type="number" id="description" defaultValue="" {...register('description')} />
       </FormRow>
 
       <FormRow label={'Cabin photo'} errorMessage={errors?.image?.message}>
-        <FileInput disabled={isSubmitting} id="image" accept="image/*" {...register(isEditSession ? 'editImage' : 'image')} />
+        <FileInput disabled={isWorking} id="image" accept="image/*" {...register(isEditSession ? 'editImage' : 'image')} />
       </FormRow>
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button onClick={() => onCloseModal?.()} disabled={isSubmitting} variation="secondary" type="reset">
+        <Button onClick={() => onCloseModal?.()} disabled={isWorking} variation="secondary" type="reset">
           Cancel
         </Button>
-        {isEditSession ? <Button disabled={isSubmitting}>{isSubmitting ? 'Editing...' : 'Edit cabin'}</Button> : <Button disabled={isSubmitting}>{isSubmitting ? 'Creating...' : 'Create new cabin'}</Button>}
+        {isEditSession ? <Button disabled={isWorking}>{isWorking ? 'Editing...' : 'Edit cabin'}</Button> : <Button disabled={isWorking}>{isWorking ? 'Creating...' : 'Create new cabin'}</Button>}
       </FormRow>
     </Form>
   );

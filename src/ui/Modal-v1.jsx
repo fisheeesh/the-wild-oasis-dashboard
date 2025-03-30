@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import { cloneElement, createContext, useContext, useState } from "react";
+
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
@@ -53,28 +52,7 @@ const Button = styled.button`
   }
 `;
 
-const ModalContext = createContext()
-
-const Modal = ({ children }) => {
-  const [openName, setOpenName] = useState('')
-  const close = () => setOpenName('')
-  const open = setOpenName
-
-  return <ModalContext.Provider value={{ openName, close, open }}>
-    {children}
-  </ModalContext.Provider>
-}
-
-const Open = ({ children, opens: OpenWindowName }) => {
-  const { open } = useContext(ModalContext)
-  return cloneElement(children, { onClick: () => open(OpenWindowName) })
-}
-
-const Window = ({ children, name }) => {
-  const { openName, close } = useContext(ModalContext)
-
-  if (name !== openName) return null
-
+export default function Modal({ children, onClose }) {
   /**
    * ? The main reason why a protal becomes necessary is in order ot avoid conflicts with CSS property overflow set to hidden.
    * ? If this modal is used somewhere else and that somewhere els might be a place where the modal will get cut off by a overflow hidden set on the parent.
@@ -83,20 +61,15 @@ const Window = ({ children, name }) => {
   return createPortal(
     <Overlay>
       <StyledModal>
-        <Button onClick={close}>
+        <Button onClick={onClose}>
           <HiXMark />
         </Button>
         <div>
-          {cloneElement(children, { onCloseModal: close })}
+          {children}
         </div>
       </StyledModal>
     </Overlay>,
     document.body
   )
 }
-
-Modal.Open = Open
-Modal.Window = Window
-
-export default Modal
 
