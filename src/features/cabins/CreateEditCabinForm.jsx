@@ -11,7 +11,7 @@ import { createCabinFormFields } from "../../utils/zSchema";
 import useCreateCabin from "./useCreateCabin";
 import useEditCabin from "./useEditCabin";
 
-function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
+function CreateCabinForm({ cabinToEdit = {}, setShowForm, onCloseModal }) {
   const { id: editId, ...editValues } = cabinToEdit
   const isEditSession = Boolean(editId)
 
@@ -42,13 +42,14 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
       createCabin({ ...data, image: data.image[0] }, {
         onSuccess: () => {
           reset()
+          onCloseModal?.()
         }
       })
     }
   }
 
   return (
-    <Form onSubmit={handleSubmit(onCreateCabin)}>
+    <Form onSubmit={handleSubmit(onCreateCabin)} type={onCloseModal ? 'modal' : 'regular'}>
       <FormRow label="Cabin name" errorMessage={errors?.name?.message}>
         <Input disabled={isSubmitting} type="text" id="name" {...register('name')} />
       </FormRow>
@@ -75,7 +76,7 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button disabled={isSubmitting} variation="secondary" type="reset">
+        <Button onClick={() => onCloseModal?.()} disabled={isSubmitting} variation="secondary" type="reset">
           Cancel
         </Button>
         {isEditSession ? <Button disabled={isSubmitting}>{isSubmitting ? 'Editing...' : 'Edit cabin'}</Button> : <Button disabled={isSubmitting}>{isSubmitting ? 'Creating...' : 'Create new cabin'}</Button>}

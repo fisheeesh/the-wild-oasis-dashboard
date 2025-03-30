@@ -1,3 +1,6 @@
+
+import { createPortal } from "react-dom";
+import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 
 const StyledModal = styled.div`
@@ -48,3 +51,25 @@ const Button = styled.button`
     color: var(--color-grey-500);
   }
 `;
+
+export default function Modal({ children, onClose }) {
+  /**
+   * ? The main reason why a protal becomes necessary is in order ot avoid conflicts with CSS property overflow set to hidden.
+   * ? If this modal is used somewhere else and that somewhere els might be a place where the modal will get cut off by a overflow hidden set on the parent.
+   * ? So in order to avoid this kind of situation, we simply render the modal completely outside of the rest of the DOM.
+   */
+  return createPortal(
+    <Overlay>
+      <StyledModal>
+        <Button onClick={onClose}>
+          <HiXMark />
+        </Button>
+        <div>
+          {children}
+        </div>
+      </StyledModal>
+    </Overlay>,
+    document.body
+  )
+}
+
