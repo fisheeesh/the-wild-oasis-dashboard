@@ -25,7 +25,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
 
   const isWorking = isCreating || isEditing || isSubmitting
 
-  const onCreateCabin = async (data) => {
+  const onCreateCabin = (data) => {
     // await new Promise(resolve => setTimeout(resolve, 2000))
     if (isEditSession) {
       const newCabin = {

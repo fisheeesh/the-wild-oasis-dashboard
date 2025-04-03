@@ -73,7 +73,7 @@ const Open = ({ children, opens: OpenWindowName }) => {
 
 const Window = ({ children, name }) => {
   const { openName, close } = useContext(ModalContext)
-  
+
   const modalRef = useOutsideClick(close)
 
   if (name !== openName) return null
