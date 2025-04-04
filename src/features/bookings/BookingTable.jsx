@@ -7,10 +7,10 @@ import useBookings from './useBookings.js'
 
 function BookingTable() {
   const { bookings, bookingsLoading } = useBookings()
+  
+  if (bookingsLoading) return <Spinner />
 
   if (!bookings?.length) return <Empty resourceName={'bookings'} />
-
-  if (bookingsLoading) return <Spinner />
 
   return (
     <Menus>

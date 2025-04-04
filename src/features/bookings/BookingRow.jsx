@@ -35,6 +35,11 @@ const Amount = styled.div`
   font-family: "Sono";
   font-weight: 500;
 `;
+const statusToTagName = {
+  unconfirmed: "blue",
+  "checked-in": "green",
+  "checked-out": "silver",
+};
 
 function BookingRow({
   booking: {
@@ -50,11 +55,6 @@ function BookingRow({
     cabins: { name: cabinName },
   },
 }) {
-  const statusToTagName = {
-    unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
-  };
 
   return (
     <Table.Row>
