@@ -6,7 +6,7 @@ const useBooking = () => {
     const { bookingId } = useParams()
 
     const { data: booking, isLoading: bookingLoading, error: bookingError } = useQuery({
-        queryKey: ['booking'],
+        queryKey: ['booking', bookingId],
         queryFn: () => getBooking(bookingId),
         //? By default, react-query tries to fetch 3 times in case it fails in the beginning. (it does not make sense in every case)
         retry: false
