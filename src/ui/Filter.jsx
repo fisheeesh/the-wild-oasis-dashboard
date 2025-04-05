@@ -43,6 +43,8 @@ export default function Filter({ filterField, options }) {
 
   const handleClick = (value) => {
     searchParams.set(filterField, value)
+    //! Everytime we change the filter, we want to reset the page to 1 to avoid unnecessary errors and confusion
+    if (searchParams.get('page')) searchParams.set('page', 1)
     setSearchParams(searchParams)
   }
 
