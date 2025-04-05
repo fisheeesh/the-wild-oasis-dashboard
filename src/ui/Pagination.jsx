@@ -2,6 +2,7 @@
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { PAGE_SIZE } from "../utils/constants";
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -58,8 +59,6 @@ const PaginationButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
-
-const PAGE_SIZE = 10
 /**
  * ? To implement pagination feature, we will need total numbers of items in display .
  * $ In our case, that value will be shown like {count} results.
@@ -96,6 +95,8 @@ export default function Pagination({ count }) {
     searchParams.set('page', prev)
     setSearchParams(searchParams)
   }
+
+  if (totalPage <= 1) return null
 
   return (
     <StyledPagination>

@@ -16,14 +16,17 @@ const useBookings = () => {
     const [field, direction] = sortByRaw.split('-')
     const sortBy = { field, direction }
 
-    const { data: bookings, isLoading: bookingsLoading, error: bookingsError } = useQuery({
+    //? pagination
+    const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'))
+
+    const { data: { data: bookings, count } = {}, isLoading: bookingsLoading, error: bookingsError } = useQuery({
         //? Like dependency array in useEffect
         //? It will refetch the query when the filter changes
-        queryKey: ['bookings', filter, sortBy],
-        queryFn: () => getBookings({ filter, sortBy })
+        queryKey: ['bookings', filter, sortBy, page],
+        queryFn: () => getBookings({ filter, sortBy, page })
     })
 
-    return { bookings, bookingsLoading, bookingsError }
+    return { bookings, bookingsLoading, bookingsError, count }
 
 }
 
