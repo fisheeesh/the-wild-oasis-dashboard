@@ -8,6 +8,7 @@ import Account from '../pages/Account'
 import Login from '../pages/Login'
 import PageNotFound from '../pages/PageNotFound'
 import AppLayout from "../ui/AppLayout"
+import Booking from "../pages/Booking"
 
 // cEenoLcqRXmdhxaA
 
@@ -29,6 +30,10 @@ export default function Router() {
                 {
                     path: 'bookings',
                     element: <Bookings />,
+                },
+                {
+                    path: 'bookings/:bookingId',
+                    element: <Booking />,
                 },
                 {
                     path: 'cabins',

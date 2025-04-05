@@ -83,8 +83,6 @@ export default function Pagination({ count }) {
   const isLastPage = currentPage === totalPage
   const isFirstPage = currentPage === 1
 
-  console.log(`isLastPage: ${isLastPage}, isFirstPage: ${isFirstPage}`)
-
   const nextPage = () => {
     const next = isLastPage ? currentPage : Number(currentPage) + 1
     searchParams.set('page', next)
