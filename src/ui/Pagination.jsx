@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledPagination = styled.div`
@@ -55,3 +58,61 @@ const PaginationButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+const PAGE_SIZE = 10
+/**
+ * ? To implement pagination feature, we will need total numbers of items in display .
+ * $ In our case, that value will be shown like {count} results.
+ * ? Also, we will need the current page value which will be as global state and store in the url .
+ * ? So we will retrieve by using useSearchParams hook.
+ * ? Then we will have prev and next buttons, prev will decrease current page and next will increase it.
+ * ! For that we will need arithmetic operations, dun forget to convert the value(currentPage) to number.
+ * ? We also need to calculate totalPage value by dividing total number of items(count) by PAGE_SIZE.
+ * ? Prev Button, if the current page is first page(currentPage === 1) then, we will disable the button and do nothing with current page value. If not increase current page value by 1.
+ * ? Next Button, if the currentpage is last page(currentPage === totalPage) then, we will disable the button and do nothing with current page value. If not decrease current page value by 1.  
+ * ? Then  we will stored in the url and reuse it.
+ * ? 
+ */
+export default function Pagination({ count }) {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  //! Dun forget to convert Number
+  const currentPage = !searchParams.get('page') ? 1 : Number(searchParams.get('page'))
+
+  const totalPage = Math.ceil(count / PAGE_SIZE)
+
+  const isLastPage = currentPage === totalPage
+  const isFirstPage = currentPage === 1
+
+  console.log(`isLastPage: ${isLastPage}, isFirstPage: ${isFirstPage}`)
+
+  const nextPage = () => {
+    const next = isLastPage ? currentPage : Number(currentPage) + 1
+    searchParams.set('page', next)
+    setSearchParams(searchParams)
+  }
+  const prevPage = () => {
+    const prev = isFirstPage ? currentPage : Number(currentPage) - 1
+    searchParams.set('page', prev)
+    setSearchParams(searchParams)
+  }
+
+  return (
+    <StyledPagination>
+      <P>
+        Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to <span>{isLastPage ? count : currentPage * PAGE_SIZE}</span> of <span>{count}</span> results
+      </P>
+      <Buttons>
+        <PaginationButton onClick={prevPage} disabled={isFirstPage}>
+          <HiChevronLeft />
+          <span>Previous</span>
+        </PaginationButton>
+        <PaginationButton onClick={nextPage} disabled={isLastPage}>
+          <span>Next</span>
+          <HiChevronRight />
+        </PaginationButton>
+      </Buttons>
+    </StyledPagination>
+  )
+}
+

@@ -12,7 +12,7 @@ const useBookings = () => {
     // const filter = !filterValue || filterValue === 'all' ? null : { field: 'totalPrice', value: 5000, method: 'gte' }
 
     //? sort
-    const sortByRaw = searchParams.get('sortBy')
+    const sortByRaw = searchParams.get('sortBy') || 'startDate-asc'
     const [field, direction] = sortByRaw.split('-')
     const sortBy = { field, direction }
 
