@@ -1,38 +1,56 @@
-import { useState } from "react";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertical";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginFormFields } from "../../utils/zSchema";
+import useLogin from "./useLogin";
+import SpinnerMini from '../../ui/SpinnerMini'
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    defaultValues: {
+      email: 'syp@example.com',
+      password: 'password'
+    },
+    resolver: zodResolver(loginFormFields)
+  })
 
-  function handleSubmit() {}
+  const { login, loginLoading } = useLogin()
+
+  const isWorking = isSubmitting || loginLoading
+
+  async function onLoginUser(data) {
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    login({ email: data.email, password: data.password })
+  }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormRowVertical label="Email address">
+    <Form onSubmit={handleSubmit(onLoginUser)}>
+      <FormRowVertical label="Email address" error={errors?.email?.message}>
         <Input
+          disabled={isWorking}
           type="email"
           id="email"
-          // This makes this form better for password managers
+          //? This makes this form better for password managers
           autoComplete="username"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          {...register('email')}
         />
       </FormRowVertical>
-      <FormRowVertical label="Password">
+      <FormRowVertical label="Password" error={errors?.password?.message}>
         <Input
+          disabled={isWorking}
           type="password"
           id="password"
           autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          {...register('password')}
         />
       </FormRowVertical>
       <FormRowVertical>
-        <Button size="large">Login</Button>
+        <Button size="large" disabled={isWorking}>
+          {!isWorking ? 'Log in' : <SpinnerMini />}
+        </Button>
       </FormRowVertical>
     </Form>
   );

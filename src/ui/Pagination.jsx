@@ -60,9 +60,9 @@ const PaginationButton = styled.button`
   }
 `;
 /**
- * ? To implement pagination feature, we will need total numbers of items in display .
+ * ? To implement pagination feature, we will need total numbers of items in display.
  * $ In our case, that value will be shown like {count} results.
- * ? Also, we will need the current page value which will be as global state and store in the url .
+ * ? Also, we will need the current page value which will be as global state and store in the url.
  * ? So we will retrieve by using useSearchParams hook.
  * ? Then we will have prev and next buttons, prev will decrease current page and next will increase it.
  * ! For that we will need arithmetic operations, dun forget to convert the value(currentPage) to number.

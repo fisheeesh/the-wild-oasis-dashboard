@@ -18,7 +18,6 @@ export default function CabinTable() {
   if (filterValue === 'no-discount') filteredCabins = cabins?.filter(cabin => cabin.discount === 0)
   if (filterValue === 'with-discount') filteredCabins = cabins?.filter(cabin => cabin.discount > 0)
 
-
   //? For Sort
   const sortBy = searchParams.get('sortBy') || 'startDate-asc'
   const [field, direction] = sortBy.split('-')
