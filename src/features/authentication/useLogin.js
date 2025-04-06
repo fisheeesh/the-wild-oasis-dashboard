@@ -14,7 +14,7 @@ const useLogin = () => {
             //? Instead, we can set the user data (which is currently logged in user) in React Query cache.
             //? This allows us to manually set some data in React Query cache.
             queryClient.setQueriesData(['user'], user)
-            navigate('/')
+            navigate('/dashboard', { replace: true })
         },
         onError: () => {
             toast.error('Incorrect Credentials.')

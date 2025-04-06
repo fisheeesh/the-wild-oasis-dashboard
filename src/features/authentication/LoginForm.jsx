@@ -12,7 +12,7 @@ function LoginForm() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({
     defaultValues: {
       email: 'syp@example.com',
-      password: 'password'
+      password: 'Swamyi162$'
     },
     resolver: zodResolver(loginFormFields)
   })
