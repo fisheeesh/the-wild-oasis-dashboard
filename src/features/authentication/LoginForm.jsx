@@ -9,7 +9,7 @@ import useLogin from "./useLogin";
 import SpinnerMini from '../../ui/SpinnerMini'
 
 function LoginForm() {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({
     defaultValues: {
       email: 'syp@example.com',
       password: 'password'
@@ -23,7 +23,14 @@ function LoginForm() {
 
   async function onLoginUser(data) {
     await new Promise(resolve => setTimeout(resolve, 1000))
-    login({ email: data.email, password: data.password })
+    login({ email: data.email, password: data.password }, {
+      onSettled: () => {
+        reset({
+          email: '',
+          password: ''
+        })
+      }
+    })
   }
 
   return (

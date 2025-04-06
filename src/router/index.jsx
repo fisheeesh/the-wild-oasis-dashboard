@@ -10,6 +10,7 @@ import PageNotFound from '../pages/PageNotFound'
 import AppLayout from "../ui/AppLayout"
 import Booking from "../pages/Booking"
 import Checkin from "../pages/Checkin"
+import ProtectedRoute from "../ui/ProtectedRoute"
 
 // cEenoLcqRXmdhxaA
 
@@ -18,7 +19,7 @@ export default function Router() {
     const router = createBrowserRouter([
         {
             path: '/',
-            element: <AppLayout />,
+            element: <ProtectedRoute><AppLayout /></ProtectedRoute>,
             children: [
                 {
                     index: true,
