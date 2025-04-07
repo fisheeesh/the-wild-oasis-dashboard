@@ -33,6 +33,7 @@ createRoot(document.getElementById('root')).render(
         duration: 5000
       },
       style: {
+        textAlign: 'center',
         fontSize: '16px',
         maxWidth: '500px',
         padding: '16px 24px',
