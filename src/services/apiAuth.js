@@ -1,4 +1,4 @@
-import supabase from './supabase'
+import supabase, { supabaseUrl } from './supabase'
 
 //$ In modern frontend development, it is pretty common not to pass mutlitple arguments to a function, but to pass them as an object.
 
@@ -47,4 +47,36 @@ export const logout = async () => {
     const { error } = await supabase.auth.signOut()
 
     if (error) throw new Error(error.message)
+}
+
+export const updateCurrentUser = async ({ password, fullName, avatar }) => {
+    //? 1. Update fullName or password
+    let updateData;
+
+    if (password) updateData = { password }
+    if (fullName) updateData = { data: { fullName } }
+
+    const { data, error: userError1 } = await supabase.auth.updateUser(updateData)
+
+    if (userError1) throw new Error(userError1.message)
+
+    if (!avatar) return data
+
+    //? 2. Upload avatar
+    const fileName = `avatar-${data.user.id}-${Date.now()}`
+
+    const { error: storageError } = await supabase.storage.from('avatars').upload(fileName, avatar)
+
+    if (storageError) throw new Error(storageError.message)
+
+    //? 3. Upload avatar in user
+    const { data: updateUser, error: userError2 } = await supabase.auth.updateUser({
+        data: {
+            avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`
+        }
+    })
+
+    if (userError2) throw new Error(userError2.message)
+
+    return updateUser
 }

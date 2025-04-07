@@ -12,12 +12,12 @@ import SpinnerMini from "../../ui/SpinnerMini";
 
 function SignupForm() {
   const { register, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm({
-    defaultValues: {
-      fullName: 'user',
-      email: 'user@oasis.com',
-      password: 'User1234$',
-      passwordConfirm: 'User1234$'
-    },
+    // defaultValues: {
+    //   fullName: 'user',
+    //   email: 'user@oasis.com',
+    //   password: 'User1234$',
+    //   passwordConfirm: 'User1234$'
+    // },
     resolver: zodResolver(createUserFormFields)
   })
 
@@ -59,7 +59,7 @@ function SignupForm() {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset" disabled={isWorking}>
+        <Button variation="secondary" type="reset" disabled={isWorking} onClick={reset}>
           Cancel
         </Button>
         <Button disabled={isWorking}>
