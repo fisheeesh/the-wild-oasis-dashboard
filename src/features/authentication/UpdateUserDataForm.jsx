@@ -29,6 +29,7 @@ function UpdateUserDataForm() {
     updateUser({ fullName, avatar }, {
       onSuccess: () => {
         setAvatar(null)
+        //!
         e.target.reset()
       }
     })
