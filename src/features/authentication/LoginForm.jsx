@@ -11,8 +11,8 @@ import SpinnerMini from '../../ui/SpinnerMini'
 function LoginForm() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({
     defaultValues: {
-      email: 'syp@example.com',
-      password: 'Swamyi162$'
+      email: 'user@oasis.com',
+      password: 'User1234$'
     },
     resolver: zodResolver(loginFormFields)
   })
