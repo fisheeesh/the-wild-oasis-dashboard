@@ -11,7 +11,6 @@ const FullPage = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    
 `
 
 export default function ProtectedRoute({ children }) {
@@ -28,7 +27,7 @@ export default function ProtectedRoute({ children }) {
          * $ That does not mean we want to redirect them to login page.
          * @TODO: Only when there is no longer loading and the user is not authenticated, we want to redirect to login
          */
-        if (!isAuthenticated && !userLoading) navigate('/login')
+        if (!isAuthenticated && !userLoading) navigate('/login', { replace: true })
     }, [isAuthenticated, userLoading, navigate])
 
     //? 3. While loading, show spinner

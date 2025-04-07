@@ -48,3 +48,26 @@ export const createCabinFormFields = z.object({
         });
     }
 });
+
+export const createUserFormFields = z.object({
+    fullName: z.string()
+        .min(1, { message: 'Full name is required.' }),
+    email: z.string()
+        .min(1, { message: "Email is required." })
+        .email({ message: 'Invalid format.' }),
+    password: z.string()
+        .min(1, { message: 'Password is required.' })
+        .min(6, { message: 'Password must be at least 6 characters long.' }),
+    passwordConfirm: z.string()
+        .min(1, { message: 'Password confirmation is required.' })
+        .min(6, { message: 'Password must be at least 6 characters long.' })
+}).superRefine((data, ctx) => {
+    // console.log(data, ctx)
+    if (data.password !== data.passwordConfirm) {
+        ctx.addIssue({
+            path: ['passwordConfirm'],
+            code: z.ZodIssueCode.custom,
+            message: 'Passwords do not match.'
+        });
+    }
+})

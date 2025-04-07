@@ -7,11 +7,9 @@ export const login = async ({ email, password }) => {
         password
     })
 
-    console.log(data)
-
     if (error) throw new Error(error.message)
 
-    return data.user
+    return data?.user
 }
 
 export const getCurrentUser = async () => {
