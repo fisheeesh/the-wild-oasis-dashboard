@@ -13,6 +13,10 @@ export const signup = async ({ fullName, email, password }) => {
         }
     })
 
+    if (data?.user && data.user.identities.length === 0) {
+        throw new Error("This email is already registered. Try with another one.")
+    }
+
     if (error) throw new Error(error.message)
 
     return data?.user

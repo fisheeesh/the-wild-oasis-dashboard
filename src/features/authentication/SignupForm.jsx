@@ -25,7 +25,8 @@ function SignupForm() {
 
   const isWorking = isSubmitting || isSigningUp
 
-  const onCreateNewUser = (data) => {
+  const onCreateNewUser = async (data) => {
+    await new Promise(resolve => setTimeout(resolve, 1000))
     signup({ fullName: data.fullName, email: data.email, password: data.password }, {
       onSettled: () => {
         reset({
