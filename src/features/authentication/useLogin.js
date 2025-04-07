@@ -10,14 +10,14 @@ const useLogin = () => {
     const { mutate: login, isLoading: loginLoading } = useMutation({
         mutationFn: ({ email, password }) => loginApi({ email, password }),
         onSuccess: (user) => {
-            console.log(user)
             //? We dun want to call the getCurrentUser after we login which is quite not necessary here.
             //? Instead, we can set the user data (which is currently logged in user) in React Query cache.
             //? This allows us to manually set some data in React Query cache.
-            queryClient.setQueryData(['user'], user.user)
-            navigate('/dashboard', { replace: true })
+            queryClient.setQueryData(['user'], user);
+            navigate('/dashboard', { replace: true });
         },
-        onError: () => {
+        onError: (err) => {
+            console.log('Error: ', err)
             toast.error('Incorrect Credentials.')
         }
     })
