@@ -113,7 +113,7 @@ npm run dev
 Check out the live version of The Wild Oasis Dashboard: 
 
 ## License
-This project is licensed under the [MIT License](LICENSE.md).
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 Built with care by **Fisheeesh**
