@@ -33,7 +33,7 @@ const TodayList = styled.ul`
   -ms-overflow-style: none;
 `;
 
-const NoActivity = styled.p`
+const NoActivity = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
