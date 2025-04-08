@@ -35,7 +35,7 @@ function BookingDetail() {
 
   if (bookingLoading) return <Spinner />
 
-  if (bookingError) return <Empty />
+  if (bookingError) return <Empty resourceName={'booking'} />
 
   const { status, id: bookingId } = booking
 
