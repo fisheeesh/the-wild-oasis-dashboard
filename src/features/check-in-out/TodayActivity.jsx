@@ -1,10 +1,11 @@
 import styled from "styled-components";
-
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Heading from "../../ui/Heading";
 import Row from "../../ui/Row";
 import useTodayActivity from "./useTodayActivity";
 import Spinner from "../../ui/Spinner";
 import TodayItem from "./TodayItem";
+import emptyAnimation from '../../assets/empty.lottie'
 
 const StyledToday = styled.div`
   /* Box */
@@ -33,10 +34,13 @@ const TodayList = styled.ul`
 `;
 
 const NoActivity = styled.p`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   font-size: 1.8rem;
   font-weight: 500;
-  margin-top: 0.8rem;
 `;
 
 function Today() {
@@ -54,7 +58,15 @@ function Today() {
             <TodayList>
               {activities.map((activity) => <TodayItem key={activity.id} activity={activity} />)}
             </TodayList>
-            : <NoActivity>No Activity Today.</NoActivity>
+            : <NoActivity>
+              <DotLottieReact
+                style={{ width: '300px', height: '170px' }}
+                src={emptyAnimation}
+                loop
+                autoplay
+              />
+              No Activity Today.
+            </NoActivity>
           : <Spinner />
       }
     </StyledToday>

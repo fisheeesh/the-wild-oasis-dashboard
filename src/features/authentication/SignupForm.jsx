@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createUserFormFields } from "../../utils/zSchema";
 import useSignup from "./useSignup";
 import SpinnerMini from "../../ui/SpinnerMini";
+import usePageTitle from "../../hooks/usePageTitle";
 
 // Email regex: /\S+@\S+\.\S+/
 
@@ -20,6 +21,8 @@ function SignupForm() {
     // },
     resolver: zodResolver(createUserFormFields)
   })
+
+  usePageTitle(`Create New User`)
 
   const { signup, isSigningUp } = useSignup()
 

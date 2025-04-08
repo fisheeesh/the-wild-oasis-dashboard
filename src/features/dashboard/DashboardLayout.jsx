@@ -7,6 +7,7 @@ import Stats from "./Stats";
 import SalesChart from "./SalesChart";
 import DurationChart from "./DurationChart";
 import TodayActivity from '../check-in-out/TodayActivity'
+import usePageTitle from "../../hooks/usePageTitle";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -19,6 +20,8 @@ export default function DashboardLayout() {
   const { bookings, isLoading: bookingsLoading } = useRecentBookings()
   const { confirmedStays, isLoading: staysLoading, numDays } = useRecentStays()
   const { cabins, isLoading: cabinsLoading } = useCabins()
+
+  usePageTitle('Dashboard')
 
   if (bookingsLoading || staysLoading || cabinsLoading) return <Spinner />
 

@@ -5,9 +5,12 @@ import Empty from "../../ui/Empty";
 import Spinner from "../../ui/Spinner";
 import useBookings from './useBookings.js'
 import Pagination from "../../ui/Pagination.jsx";
+import usePageTitle from "../../hooks/usePageTitle.js";
 
 function BookingTable() {
   const { bookings, bookingsLoading, count } = useBookings()
+
+  usePageTitle('Bookings')
 
   if (bookingsLoading) return <Spinner />
 

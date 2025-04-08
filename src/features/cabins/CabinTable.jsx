@@ -5,10 +5,13 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
 import Empty from "../../ui/Empty";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function CabinTable() {
   const [searchParams] = useSearchParams()
   const { cabins, isLoading } = useCabins()
+
+    usePageTitle(`Cabins`)
 
   //? For Filter
   const filterValue = searchParams.get('discount') || 'all'

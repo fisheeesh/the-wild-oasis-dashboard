@@ -8,6 +8,7 @@ import Input from "../../ui/Input";
 
 import useUser from "./useUser";
 import useUpdateUser from "./useUpdateUser";
+import usePageTitle from "../../hooks/usePageTitle";
 
 function UpdateUserDataForm() {
   // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
@@ -17,6 +18,8 @@ function UpdateUserDataForm() {
       user_metadata: { fullName: currentFullName },
     },
   } = useUser();
+
+  usePageTitle(`Profile`)
 
   const { updateUser, userUpdating } = useUpdateUser()
 

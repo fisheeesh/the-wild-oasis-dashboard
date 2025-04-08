@@ -44,7 +44,7 @@ export const createCabinFormFields = z.object({
         ctx.addIssue({
             path: ['discount'],
             code: z.ZodIssueCode.custom,
-            message: 'Discount should be less than regular price'
+            message: 'Discount shuld be less than regular price'
         });
     }
 });

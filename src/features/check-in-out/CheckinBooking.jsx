@@ -16,6 +16,7 @@ import Spinner from "../../ui/Spinner";
 import { useEffect, useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import useSettings from "../settings/useSettings";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const Box = styled.div`
   /* Box */
@@ -33,6 +34,8 @@ function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false)
   const [addBreakfast, setAddBreakfast] = useState(false)
   const moveBack = useMoveBack();
+
+  usePageTitle(`Check-in #${booking?.id}`)
 
   useEffect(() => setConfirmPaid(booking?.isPaid ?? false), [booking?.isPaid])
 

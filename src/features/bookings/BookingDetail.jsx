@@ -18,6 +18,7 @@ import useBooking from "./useBooking";
 import { useNavigate } from "react-router-dom";
 import useCheckout from "../check-in-out/useCheckout";
 import useDeleteBooking from './useDeleteBooking'
+import usePageTitle from "../../hooks/usePageTitle";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -31,6 +32,8 @@ function BookingDetail() {
   const { checkout, isCheckingout } = useCheckout()
   const { deleteBooking, isDeletingBooking } = useDeleteBooking()
 
+  usePageTitle(`Booking #${booking?.id}`)
+
   const moveBack = useMoveBack();
 
   if (bookingLoading) return <Spinner />
@@ -38,6 +41,8 @@ function BookingDetail() {
   if (bookingError) return <Empty resourceName={'booking'} />
 
   const { status, id: bookingId } = booking
+
+
 
   return (
     <>
