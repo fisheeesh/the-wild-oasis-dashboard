@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import useSettings from "../settings/useSettings";
 import usePageTitle from "../../hooks/usePageTitle";
-import Checkbox from "../../ui/CheckBox";
+import CheckBox from "../../ui/CheckBox";
 
 const Box = styled.div`
   /* Box */
@@ -71,7 +71,7 @@ function CheckinBooking() {
       <BookingDataBox booking={booking} />
 
       {!hasBreakfast && <Box>
-        <Checkbox
+        <CheckBox
           id='breakfast'
           checked={addBreakfast}
           onChange={() => {
@@ -80,18 +80,18 @@ function CheckinBooking() {
           }}
         >
           Want to add breakfast for {formatCurrency(optionalBreakfastPrice)}?
-        </Checkbox>
+        </CheckBox>
       </Box>}
 
       <Box>
-        <Checkbox
+        <CheckBox
           checked={confirmPaid}
           disabled={confirmPaid || isCheckingIn}
           onChange={() => setConfirmPaid((prev) => !prev)}
           id='confirm'
         >
           I confirm that {guest.fullName} has paid the total amount of {!addBreakfast ? formatCurrency(totalPrice) : `${formatCurrency(totalPrice + optionalBreakfastPrice)} (${formatCurrency(totalPrice)} + ${formatCurrency(optionalBreakfastPrice)})`}
-        </Checkbox>
+        </CheckBox>
       </Box>
 
       <ButtonGroup>
