@@ -2,6 +2,7 @@ import styled from "styled-components"
 import Logo from './Logo.jsx'
 import MainNav from './MainNav'
 import Uploader from '../data/Uploader.jsx'
+import useUser from '../features/authentication/useUser.js'
 
 const StyledSidebar = styled.aside`
     background-color: var(--color-grey-0);
@@ -14,13 +15,16 @@ const StyledSidebar = styled.aside`
     gap: 3.2rem;
 `
 
+const sypId = import.meta.env.VITE_SYP
+
 export default function Sidebar() {
+    const { user } = useUser()
+
     return (
         <StyledSidebar>
             <Logo />
             <MainNav />
-
-            <Uploader />
+            {user.id === sypId && < Uploader />}
         </StyledSidebar>
     )
 }
