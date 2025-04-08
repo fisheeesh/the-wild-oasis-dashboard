@@ -5,7 +5,6 @@ import Heading from "../../ui/Heading";
 import ButtonGroup from "../../ui/ButtonGroup";
 import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
-import CheckBox from "../../ui/CheckBox";
 import useCheckin from "./useCheckin";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import useBooking from "../bookings/useBooking";
@@ -14,6 +13,7 @@ import { useEffect, useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import useSettings from "../settings/useSettings";
 import usePageTitle from "../../hooks/usePageTitle";
+import Checkbox from "../../ui/CheckBox";
 
 const Box = styled.div`
   /* Box */
@@ -71,7 +71,7 @@ function CheckinBooking() {
       <BookingDataBox booking={booking} />
 
       {!hasBreakfast && <Box>
-        <CheckBox
+        <Checkbox
           id='breakfast'
           checked={addBreakfast}
           onChange={() => {
@@ -80,18 +80,18 @@ function CheckinBooking() {
           }}
         >
           Want to add breakfast for {formatCurrency(optionalBreakfastPrice)}?
-        </CheckBox>
+        </Checkbox>
       </Box>}
 
       <Box>
-        <CheckBox
+        <Checkbox
           checked={confirmPaid}
           disabled={confirmPaid || isCheckingIn}
           onChange={() => setConfirmPaid((prev) => !prev)}
           id='confirm'
         >
           I confirm that {guest.fullName} has paid the total amount of {!addBreakfast ? formatCurrency(totalPrice) : `${formatCurrency(totalPrice + optionalBreakfastPrice)} (${formatCurrency(totalPrice)} + ${formatCurrency(optionalBreakfastPrice)})`}
-        </CheckBox>
+        </Checkbox>
       </Box>
 
       <ButtonGroup>
