@@ -39,7 +39,7 @@ function Login() {
     <Spinner />
   </FullPage>
 
-  return <LoginLayout>
+  if (!isAuthenticated) return <LoginLayout>
     <Logo />
     <Heading as="h4">Login to your account.</Heading>
     <LoginForm />
