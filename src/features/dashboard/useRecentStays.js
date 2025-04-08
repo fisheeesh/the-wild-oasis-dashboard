@@ -17,10 +17,10 @@ const useRecentStays = () => {
 
     // $ We need to calculate only the confirmed stays the one that are not unconfirmed.
     //? We need to know about this cuz the guest might never show-up and then that booking stays unconfirmed forever.
-    //? To display data in our dashboar, we are interested only in the confirmed stays.
+    //? To display data in our dashboard, we are interested only in the confirmed stays.
     const confirmedStays = stays?.filter(stay => stay.status === 'checked-in' || stay.status === 'checked-out')
 
-    return { stays, isLoading, confirmedStays }
+    return { stays, isLoading, confirmedStays, numDays }
 }
 
 export default useRecentStays
