@@ -11,6 +11,7 @@ import AppLayout from "../ui/AppLayout"
 import Booking from "../pages/Booking"
 import Checkin from "../pages/Checkin"
 import ProtectedRoute from "../ui/ProtectedRoute"
+import ErrorFallback from "../ui/ErrorFallback"
 
 // cEenoLcqRXmdhxaA
 
@@ -20,6 +21,7 @@ export default function Router() {
         {
             path: '/',
             element: <ProtectedRoute><AppLayout /></ProtectedRoute>,
+            errorElement: <ErrorFallback />,
             children: [
                 {
                     index: true,
@@ -62,6 +64,7 @@ export default function Router() {
         {
             path: 'login',
             element: <Login />,
+            errorElement: <ErrorFallback />
         },
         {
             path: '*',
@@ -70,6 +73,9 @@ export default function Router() {
     ])
 
     return (
-        <RouterProvider router={router} />
+        <>
+            <RouterProvider router={router} />
+        </>
+
     )
 }
