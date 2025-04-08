@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import DashboardBox from "./DashboardBox";
@@ -50,6 +51,19 @@ const fakeData = [
 
 export default function SalesChart({ bookings, numDays }) {
 
+  const allDates = eachDayOfInterval({
+    start: subDays(new Date(), numDays - 1),
+    end: new Date()
+  })
+
+  const data = allDates.map(date => {
+    return {
+      label: format(date, 'MMM dd'),
+      totalSales: bookings.filter(booking => isSameDay(date, new Date(booking.created_at))).reduce((total, cur) => total + cur.totalPrice, 0),
+      extrasSales: bookings.filter(booking => isSameDay(date, new Date(booking.created_at))).reduce((total, cur) => total + cur.extrasPrice, 0)
+    }
+  })
+
   const { isDarkMode } = useDarkMode()
   const colors = isDarkMode
     ? {
@@ -69,7 +83,7 @@ export default function SalesChart({ bookings, numDays }) {
     <StyledSalesChart>
       <Heading as='h2'>Sales</Heading>
       <ResponsiveContainer height={300} width={'100%'}>
-        <AreaChart data={fakeData} >
+        <AreaChart data={data} >
           <XAxis dataKey={'label'} tick={{ fill: colors.text }} tickLine={{ stroke: colors.text }} />
           <YAxis unit={'$'} tick={{ fill: colors.text }} tickLine={{ stroke: colors.text }} />
           <CartesianGrid strokeDasharray={'4'} />
