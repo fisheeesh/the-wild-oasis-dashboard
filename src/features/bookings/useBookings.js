@@ -21,7 +21,7 @@ const useBookings = () => {
     //? pagination
     const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'))
 
-    const { data: { data: bookings, count } = {}, isLoading: bookingsLoading, error: bookingsError } = useQuery({
+    const { data: { data: bookings, count } = {}, isPending: bookingsLoading, error: bookingsError } = useQuery({
         //? Like dependency array in useEffect
         //? It will refetch the query when the filter changes
         queryKey: ['bookings', filter, sortBy, page],

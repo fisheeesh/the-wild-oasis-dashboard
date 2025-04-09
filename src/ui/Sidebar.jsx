@@ -3,6 +3,7 @@ import Logo from './Logo.jsx'
 import MainNav from './MainNav'
 import Uploader from '../data/Uploader.jsx'
 import useUser from '../features/authentication/useUser.js'
+import { PRIVILEDGE_IDS } from "../utils/constants.js"
 
 const StyledSidebar = styled.aside`
     background-color: var(--color-grey-0);
@@ -15,8 +16,6 @@ const StyledSidebar = styled.aside`
     gap: 3.2rem;
 `
 
-const sypId = import.meta.env.VITE_SYP
-
 export default function Sidebar() {
     const { user } = useUser()
 
@@ -24,7 +23,7 @@ export default function Sidebar() {
         <StyledSidebar>
             <Logo />
             <MainNav />
-            {user.id === sypId && < Uploader />}
+            {PRIVILEDGE_IDS.includes(user?.id) && < Uploader />}
         </StyledSidebar>
     )
 }

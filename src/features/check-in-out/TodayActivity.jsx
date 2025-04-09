@@ -44,7 +44,7 @@ const NoActivity = styled.div`
 `;
 
 function Today() {
-  const { activities, isLoading } = useTodayActivity()
+  const { activities, isPending } = useTodayActivity()
 
   return (
     <StyledToday>
@@ -53,7 +53,7 @@ function Today() {
       </Row>
 
       {
-        !isLoading ?
+        !isPending ?
           activities?.length > 0 ?
             <TodayList>
               {activities.map((activity) => <TodayItem key={activity.id} activity={activity} />)}

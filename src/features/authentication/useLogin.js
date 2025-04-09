@@ -7,7 +7,7 @@ const useLogin = () => {
     const queryClient = useQueryClient()
     const navigate = useNavigate()
 
-    const { mutate: login, isLoading: loginLoading } = useMutation({
+    const { mutate: login, isPending: loginLoading } = useMutation({
         mutationFn: ({ email, password }) => loginApi({ email, password }),
         onSuccess: (user) => {
             //? We dun want to call the getCurrentUser after we login which is quite not necessary here.
@@ -18,7 +18,7 @@ const useLogin = () => {
         },
         onError: (err) => {
             console.log('Error: ', err)
-            toast.error('Incorrect Credentials.')
+            toast.error(err.message)
         }
     })
 

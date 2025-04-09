@@ -5,7 +5,7 @@ import toast from "react-hot-toast"
 const useUpdateUser = () => {
     const queryClient = useQueryClient()
 
-    const { mutate: updateUser, isLoading: userUpdating } = useMutation({
+    const { mutate: updateUser, isPending: userUpdating } = useMutation({
         mutationFn: updateCurrentUser,
         onSuccess: ({ user }) => {
             toast.success('User account successfully updated.')

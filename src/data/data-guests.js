@@ -10,11 +10,11 @@ export const guests = [
     countryFlag: 'https://flagcdn.com/pt.svg',
   },
   {
-    fullName: 'Jonathan Smith',
-    email: 'johnsmith@test.eu',
-    nationality: 'Great Britain',
-    nationalID: '4534593454',
-    countryFlag: 'https://flagcdn.com/gb.svg',
+    fullName: 'Fisheeesh',
+    email: 'fish162@gmail.com',
+    nationality: 'Myamar',
+    nationalID: '249965',
+    countryFlag: 'https://flagcdn.com/mm.svg',
   },
   {
     fullName: 'Jonatan Johansson',

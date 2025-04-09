@@ -10,7 +10,7 @@ const useRecentStays = () => {
 
     const queryDate = subDays(new Date(), numDays).toISOString()
 
-    const { data: stays, isLoading } = useQuery({
+    const { data: stays, isPending } = useQuery({
         queryKey: ['stays', `last-${numDays}`],
         queryFn: () => getStaysAfterDate(queryDate)
     })
@@ -20,7 +20,7 @@ const useRecentStays = () => {
     //? To display data in our dashboard, we are interested only in the confirmed stays.
     const confirmedStays = stays?.filter(stay => stay.status === 'checked-in' || stay.status === 'checked-out')
 
-    return { stays, isLoading, confirmedStays, numDays }
+    return { stays, isPending, confirmedStays, numDays }
 }
 
 export default useRecentStays

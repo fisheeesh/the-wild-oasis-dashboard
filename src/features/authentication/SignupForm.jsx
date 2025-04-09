@@ -24,12 +24,12 @@ function SignupForm() {
 
   usePageTitle(`Create New User`)
 
-  const { signup, isSigningUp } = useSignup()
+  const { signup, isSigningup } = useSignup()
 
-  const isWorking = isSubmitting || isSigningUp
+  const isWorking = isSubmitting || isSigningup
 
   const onCreateNewUser = async (data) => {
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    // await new Promise(resolve => setTimeout(resolve, 1000))
     signup({ fullName: data.fullName, email: data.email, password: data.password }, {
       onSettled: () => {
         reset({

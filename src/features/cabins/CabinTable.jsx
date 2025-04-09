@@ -9,7 +9,7 @@ import usePageTitle from "../../hooks/usePageTitle";
 
 export default function CabinTable() {
   const [searchParams] = useSearchParams()
-  const { cabins, isLoading } = useCabins()
+  const { cabins, isPending } = useCabins()
 
     usePageTitle(`Cabins`)
 
@@ -27,7 +27,7 @@ export default function CabinTable() {
   const modifier = direction === 'asc' ? 1 : -1
   const sortedCabins = filteredCabins?.sort((a, b) => (a[field] - b[field]) * modifier)
 
-  if (isLoading) return <Spinner />
+  if (isPending) return <Spinner />
 
   if (!cabins.length) return <Empty resourceName={'cabins'} />
 

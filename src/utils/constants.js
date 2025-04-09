@@ -1,5 +1,7 @@
 export const PAGE_SIZE = 10
 
+export const PRIVILEDGE_IDS = ['dd779ebb-7a6f-4489-8272-7aca494e32f1']
+
 export const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",

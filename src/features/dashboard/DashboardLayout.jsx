@@ -17,9 +17,9 @@ const StyledDashboardLayout = styled.div`
 `;
 
 export default function DashboardLayout() {
-  const { bookings, isLoading: bookingsLoading } = useRecentBookings()
-  const { confirmedStays, isLoading: staysLoading, numDays } = useRecentStays()
-  const { cabins, isLoading: cabinsLoading } = useCabins()
+  const { bookings, isPending: bookingsLoading } = useRecentBookings()
+  const { confirmedStays, isPending: staysLoading, numDays } = useRecentStays()
+  const { cabins, isPending: cabinsLoading } = useCabins()
 
   usePageTitle('Dashboard')
 

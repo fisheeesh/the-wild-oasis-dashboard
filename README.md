@@ -6,7 +6,7 @@
 
 **The Wild Oasis** is a secure hotel management dashboard built for internal use by hotel staff. It enables employees to manage guest bookings, check-ins and check-outs, cabin inventory, user accounts, and general hotel settings. The dashboard also provides business insights through interactive charts and a clean interface.
 
-![User Interface](./public/preview_dark.png)
+![User Interface](./public/preview.png)
 
 ## Table of Contents
 
