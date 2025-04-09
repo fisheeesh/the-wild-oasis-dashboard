@@ -4,7 +4,7 @@
   <img src="./public/logo-dark.png" alt="Logo" width="200"/>
 </p>
 
-**The Wild Oasis** is a secure hotel management dashboard built for internal use by hotel staff. It enables employees to manage guest bookings, check-ins and check-outs, cabin inventory, user accounts, and general hotel settings. The dashboard also provides real-time business insights through interactive charts and a clean, responsive interface.
+**The Wild Oasis** is a secure hotel management dashboard built for internal use by hotel staff. It enables employees to manage guest bookings, check-ins and check-outs, cabin inventory, user accounts, and general hotel settings. The dashboard also provides business insights through interactive charts and a clean interface.
 
 ![User Interface](./public/preview_dark.png)
 
@@ -15,9 +15,8 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [🌐 Live Demo](#-live-demo)
+- [Live Demo](#live-demo)
 - [License](#license)
-- [Contact](#contact)
 
 ## Features
 
@@ -109,7 +108,7 @@ npm install
 npm run dev
 ```
 
-## 🌐 Live Demo
+## Live Demo
 Check out the live version of The Wild Oasis Dashboard: https://the-wild-oasis-dashboard-amber.vercel.app
 
 ## License
@@ -118,4 +117,4 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 Built with care by **Fisheeesh**
 
-📧 Contact: [swanphyo444@gmail.com](mailto:swanphyo444@gmail.com)
+Contact: [swanphyo444@gmail.com](mailto:swanphyo444@gmail.com)
