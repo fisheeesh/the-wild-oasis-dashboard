@@ -6,12 +6,14 @@ import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
 import Empty from "../../ui/Empty";
 import usePageTitle from "../../hooks/usePageTitle";
+import Pagination from "../../ui/Pagination";
+import { PAGE_SIZE } from "../../utils/constants";
 
 export default function CabinTable() {
   const [searchParams] = useSearchParams()
   const { cabins, isPending } = useCabins()
 
-    usePageTitle(`Cabins`)
+  usePageTitle(`Cabins`)
 
   //? For Filter
   const filterValue = searchParams.get('discount') || 'all'
@@ -26,6 +28,12 @@ export default function CabinTable() {
   const [field, direction] = sortBy.split('-')
   const modifier = direction === 'asc' ? 1 : -1
   const sortedCabins = filteredCabins?.sort((a, b) => (a[field] - b[field]) * modifier)
+
+  //? Pagination
+  const currentPage = !searchParams.get('page') ? 1 : Number(searchParams.get('page'))
+  const from = (currentPage - 1) * PAGE_SIZE
+  const to = from + PAGE_SIZE - 1
+  const paginatedCabins = sortedCabins?.slice(from, to)
 
   if (isPending) return <Spinner />
 
@@ -46,11 +54,15 @@ export default function CabinTable() {
         <Table.Body
           // data={cabins}
           // data={filteredCabins}
-          data={sortedCabins}
+          data={paginatedCabins}
           render={cabin => (
             <CabinRow cabin={cabin} key={cabin.id} />
           )}
         />
+
+        <Table.Footer>
+          <Pagination count={sortedCabins.length} />
+        </Table.Footer>
       </Table>
     </Menus>
   )

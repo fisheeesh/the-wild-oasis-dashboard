@@ -14,6 +14,7 @@ const StyledHeader = styled.header`
 `
 
 export default function Header() {
+    console.log('hi')
     return (
         <StyledHeader>
             <UserAvatar />
