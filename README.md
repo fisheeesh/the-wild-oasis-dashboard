@@ -109,7 +109,7 @@ npm run dev
 ```
 
 ## Live Demo
-Check out the live version of The Wild Oasis Dashboard: https://the-wild-oasis-dashboard-amber.vercel.app
+Check out the live version of The Wild Oasis Dashboard: https://www.thewildoasis.xyz
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
