@@ -3,9 +3,18 @@ import styled from "styled-components";
 
 const StyledDataItem = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.6rem;
   padding: 0.8rem 0;
+
+  /* Default to column for smaller screens */
+  flex-direction: column;
+
+  /* Row layout for md and up */
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: center;
+  }
 `;
 
 const Label = styled.span`

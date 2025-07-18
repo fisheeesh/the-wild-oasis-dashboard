@@ -7,7 +7,7 @@ import CabinTableOperation from "../features/cabins/CabinTableOperation";
 function Cabins() {
   return (
     <>
-      <Row type="horizontal">
+      <Row type="horizontal" responsive>
         <Heading as="h1">All cabins</Heading>
         <CabinTableOperation />
       </Row>

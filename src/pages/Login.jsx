@@ -10,19 +10,37 @@ import Spinner from '../ui/Spinner'
 const LoginLayout = styled.main`
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 48rem;
+  grid-template-columns: 1fr;
   align-content: center;
   justify-content: center;
-  gap: 3.2rem;
+  gap: 2.4rem;
   background-color: var(--color-grey-50);
+  padding: 2rem;
+
+  /* Mobile landscape and small tablets */
+  @media (min-width: 480px) {
+    gap: 3.2rem;
+    padding: 3rem;
+  }
+
+  /* Tablets and small desktops */
+  @media (min-width: 768px) {
+    grid-template-columns: 48rem;
+    padding: 4rem;
+  }
+
+  /* Large screens */
+  @media (min-width: 1024px) {
+    grid-template-columns: 52rem;
+  }
 `;
 
 const FullPage = styled.div`
-    height: 100vh;
-    background-color: var(--color-grey-50);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 100vh;
+  background-color: var(--color-grey-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 function Login() {

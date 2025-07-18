@@ -18,7 +18,6 @@ const StyledBookingDataBox = styled.section`
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
-
   overflow: hidden;
 `;
 
@@ -50,10 +49,59 @@ const Header = styled.header`
     font-size: 2rem;
     margin-left: 4px;
   }
+
+  @media (max-width: 1150px) {
+    flex-direction: column;
+    gap: 1.6rem;
+    padding: 1.6rem 2rem;
+    text-align: center;
+    
+    & div:first-child {
+      gap: 1.2rem;
+      font-size: 1.6rem;
+    }
+    
+    & span {
+      font-size: 1.8rem;
+    }
+    
+    svg {
+      height: 2.8rem;
+      width: 2.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.2rem 1.6rem;
+    font-size: 1.6rem;
+    
+    & div:first-child {
+      font-size: 1.4rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    & span {
+      font-size: 1.6rem;
+    }
+    
+    svg {
+      height: 2.4rem;
+      width: 2.4rem;
+    }
+  }
 `;
 
 const Section = styled.section`
   padding: 3.2rem 4rem 1.2rem;
+  
+  @media (max-width: 768px) {
+    padding: 2.4rem 2rem 1.2rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.6rem 1.6rem 1.2rem;
+  }
 `;
 
 const Guest = styled.div`
@@ -62,10 +110,38 @@ const Guest = styled.div`
   gap: 1.2rem;
   margin-bottom: 1.6rem;
   color: var(--color-grey-500);
+  flex-wrap: wrap;
 
   & p:first-of-type {
     font-weight: 500;
     color: var(--color-grey-700);
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    
+    & span {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    gap: 0.6rem;
+  }
+`;
+
+const GuestInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
   }
 `;
 
@@ -93,6 +169,27 @@ const Price = styled.div`
     width: 2.4rem;
     color: currentColor !important;
   }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.6rem 2rem;
+    
+    & p:last-child {
+      order: -1;
+      font-size: 1.6rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.2rem 1.6rem;
+    gap: 1rem;
+    
+    & p:last-child {
+      font-size: 1.4rem;
+    }
+  }
 `;
 
 const Footer = styled.footer`
@@ -100,6 +197,16 @@ const Footer = styled.footer`
   font-size: 1.2rem;
   color: var(--color-grey-500);
   text-align: right;
+  
+  @media (max-width: 768px) {
+    padding: 1.6rem 2rem;
+    text-align: center;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.2rem 1.6rem;
+    font-size: 1.1rem;
+  }
 `;
 
 // A purely presentational component
@@ -141,10 +248,12 @@ function BookingDataBox({ booking }) {
 
       <Section>
         <Guest>
-          {countryFlag && <Flag src={countryFlag} alt={`Flag of ${country}`} />}
-          <p>
-            {guestName} {numGuests > 1 ? `+ ${numGuests - 1} guests` : ""}
-          </p>
+          <GuestInfo>
+            {countryFlag && <Flag src={countryFlag} alt={`Flag of ${country}`} />}
+            <p>
+              {guestName} {numGuests > 1 ? `+ ${numGuests - 1} guests` : ""}
+            </p>
+          </GuestInfo>
           <span>&bull;</span>
           <p>{email}</p>
           <span>&bull;</span>

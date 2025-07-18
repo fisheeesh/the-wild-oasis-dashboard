@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { HiOutlineCalendarDays, HiOutlineCog6Tooth, HiOutlineHome, HiOutlineHomeModern, HiOutlineUsers } from "react-icons/hi2";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -47,36 +48,36 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-function MainNav() {
+function MainNav({ onItemClick }) {
   return (
     <nav>
       <NavList>
         <li>
-          <StyledNavLink to='/dashboard'>
+          <StyledNavLink to='/dashboard' onClick={onItemClick}>
             <HiOutlineHome />
             <span>Home</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to='/bookings'>
+          <StyledNavLink to='/bookings' onClick={onItemClick}>
             <HiOutlineCalendarDays />
             <span>Bookings</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to='/cabins'>
+          <StyledNavLink to='/cabins' onClick={onItemClick}>
             <HiOutlineHomeModern />
             <span>Cabins</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to='/users'>
+          <StyledNavLink to='/users' onClick={onItemClick}>
             <HiOutlineUsers />
             <span>Users</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to='/settings'>
+          <StyledNavLink to='/settings' onClick={onItemClick}>
             <HiOutlineCog6Tooth />
             <span>Settings</span>
           </StyledNavLink>

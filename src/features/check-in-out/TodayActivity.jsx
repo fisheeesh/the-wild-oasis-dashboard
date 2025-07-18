@@ -1,50 +1,71 @@
 import styled from "styled-components";
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import EmptyChartData from "../../ui/EmptyChartData";
 import Heading from "../../ui/Heading";
 import Row from "../../ui/Row";
-import useTodayActivity from "./useTodayActivity";
 import Spinner from "../../ui/Spinner";
 import TodayItem from "./TodayItem";
-import emptyAnimation from '../../assets/empty.lottie'
+import useTodayActivity from "./useTodayActivity";
 
 const StyledToday = styled.div`
-  /* Box */
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
-
-  padding: 3.2rem;
+  padding: 2.4rem;
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
-  grid-column: 1 / span 2;
-  padding-top: 2.4rem;
+  height: 100%;
+  min-height: 400px;
+  
+  /* Responsive padding */
+  @media (max-width: 768px) {
+    padding: 1.6rem;
+  }
 `;
 
 const TodayList = styled.ul`
-  overflow: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
-
-  /* Removing scrollbars for webkit, firefox, and ms, respectively */
+  flex: 1;
+  
+  /* Custom scrollbar for webkit browsers */
   &::-webkit-scrollbar {
-    width: 0 !important;
+    width: 6px;
   }
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  
+  &::-webkit-scrollbar-track {
+    background: var(--color-grey-100);
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-grey-300);
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--color-grey-400);
+  }
+  
+  /* For mobile, hide scrollbar completely */
+  @media (max-width: 768px) {
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 `;
 
-const NoActivity = styled.div`
+const ContentContainer = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: 500;
+  justify-content: ${props => props.isEmpty ? 'center' : 'flex-start'};
 `;
 
 function Today() {
-  const { activities, isPending } = useTodayActivity()
+  const { activities, isPending } = useTodayActivity();
 
   return (
     <StyledToday>
@@ -52,23 +73,21 @@ function Today() {
         <Heading as="h2">Today</Heading>
       </Row>
 
-      {
-        !isPending ?
-          activities?.length > 0 ?
+      <ContentContainer isEmpty={!isPending && (!activities || activities.length === 0)}>
+        {!isPending ? (
+          activities?.length > 0 ? (
             <TodayList>
-              {activities.map((activity) => <TodayItem key={activity.id} activity={activity} />)}
+              {activities.map((activity) => (
+                <TodayItem key={activity.id} activity={activity} />
+              ))}
             </TodayList>
-            : <NoActivity>
-              <DotLottieReact
-                style={{ width: '300px', height: '170px' }}
-                src={emptyAnimation}
-                loop
-                autoplay
-              />
-              No Activity Today.
-            </NoActivity>
-          : <Spinner />
-      }
+          ) : (
+            <EmptyChartData label={"No activity for today."} />
+          )
+        ) : (
+          <Spinner />
+        )}
+      </ContentContainer>
     </StyledToday>
   );
 }

@@ -7,18 +7,35 @@ const StyledFormRow = styled.div`
   flex-direction: column;
   gap: 0.8rem;
   padding: 1.2rem 0;
+
+  /* Slightly larger gap on larger screens */
+  @media (min-width: 768px) {
+    gap: 1rem;
+    padding: 1.6rem 0;
+  }
 `;
 
 const Label = styled.label`
   font-weight: 500;
+  font-size: 1.4rem;
+
+  /* Slightly larger label on tablets and up */
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Error = styled.span`
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: var(--color-red-700);
+
+  /* Slightly larger error text on tablets and up */
+  @media (min-width: 768px) {
+    font-size: 1.4rem;
+  }
 `;
 
 function FormRowVertical({ label, error, children }) {
