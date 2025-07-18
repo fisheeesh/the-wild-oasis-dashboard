@@ -25,35 +25,27 @@ const Form = styled.form`
   ${(props) =>
     props.type === "modal" &&
     css`
-      width: 80rem;
-      max-width: calc(100vw - 4rem);
-      padding: 2.4rem;
-      margin: 0 2rem;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      border: none;
       
+      /* Let the modal handle all spacing and sizing */
       @media (max-width: 1024px) {
-        width: 70rem;
-        padding: 2rem;
-        max-width: calc(100vw - 4rem);
+        padding: 0;
       }
       
       @media (max-width: 768px) {
-        width: 60rem;
-        padding: 1.8rem;
-        max-width: calc(100vw - 4rem);
+        padding: 0;
       }
       
       @media (max-width: 640px) {
-        width: 90vw;
-        max-width: calc(100vw - 4rem);
-        padding: 1.6rem;
-        margin: 0 2rem;
+        padding: 0;
       }
       
       @media (max-width: 480px) {
-        width: calc(100vw - 4rem);
-        max-width: calc(100vw - 4rem);
-        padding: 1.2rem;
-        margin: 0 2rem;
+        padding: 0;
       }
     `}
 

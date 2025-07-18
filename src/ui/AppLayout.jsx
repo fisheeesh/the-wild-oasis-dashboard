@@ -144,7 +144,7 @@ const MobileMenuToggle = styled.button`
     justify-content: center;
     position: absolute;
     top: 1.5rem;
-    left: 1rem;
+    left: 2.8rem;
     background: none;
     border: none;
     font-size: 1.5rem;
